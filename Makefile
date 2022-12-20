@@ -29,11 +29,11 @@ fetch-data: ## Fetch the vote data from the remote location
 
 .PHONY: ingest-data
 ingest-data: fetch-data ## Invoke the ingestion process
-	$(docker_run) pipenv run python src/ingest.py uncommitted/votes.jsonl
+	$(docker_run) pipenv run python -m src.ingest uncommitted/votes.jsonl
 
 .PHONY: detect-outliers
 detect-outliers: ## Invoke the outlier detection process
-	$(docker_run) pipenv run python src/outliers.py
+	$(docker_run) pipenv run python -m src.outliers
 
 .PHONY: run-query
 run-query: ## Run an arbitrary query against the database (i.e. make query="select * from posts" run-query)
