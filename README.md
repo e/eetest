@@ -71,7 +71,7 @@ There are two requirements for the task. A user should be able to execute each t
 2. Create a SQL query to calculate and output which weeks are regarded as outliers based on the vote data that was ingested.
 The output should contain the year, week number and the number of votes for the week. A week is classified as outlier when the total votes for the week deviate from the average votes per week for the complete dataset by more than 20%.</br>  
 i.e. Say the mean votes is given by $\bar{x}$ and this specific week's votes is given by $x_i$.
-We want to know when $x_i$ differs from $\bar{x}$ by more than $20\%a%b\%$. When this is true, then the ratio $\frac{x_i}{\bar{x}}$ must be further from $1$ by more than $0.2$. </br></br> 
+We want to know when $x_i$ differs from $\bar{x}$ by more than 20%. When this is true, then the ratio $\frac{x_i}{\bar{x}}$ must be further from $1$ by more than $0.2$. </br></br> 
 $\big|1 - \frac{x_i}{\bar{x}}\big| \gt 0.2$
 
 ## Example
