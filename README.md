@@ -116,3 +116,23 @@ Please include instructions about your strategy and important decisions you made
 
 1. What kind of data quality measures would you apply to your solution in production?
 2. What would need to change for the solution scale to work with a 10TB dataset with 5GB new data arriving each day?
+
+## Solution
+
+Dear all,
+Well first of all thank you very much, the assignment was very well written and I appreciate that.
+
+About my strategy, it took me a while to start, I spent a few days just thinking about the problem and gathering energy.
+When I started I first wrote the db module and the corresponding tests, and then I did the same with the ingest and outliers modules.
+It took me a while to figure out the SQL query to get the outliers because I don't have much experience with raw SQL, I learnt Python with Django and used to use the Django ORM to interact with databases, but I managed to write a query that works, maybe there's a better way to do it.
+I had to edit the makefile because the imports didn't work but apart from that everything seems to work fine. I love this test, very good, thank you very much indeed.
+It took me one or two days, more than two hours for sure but I hope the solution is OK.
+One important decision I made was to make the Id the primary key and use INSERT OR REPLACE.
+
+1. What kind of data quality measures would you apply to your solution in production?
+It would be easy to write a preprocessor, some kind of parser to check that every line contains the required keys and validate the data type of the corresponding values, and discard invalid lines if that's what you mean.
+It could also be used to split large files into smaller ones.
+
+2. What would need to change for the solution scale to work with a 10TB dataset with 5GB new data arriving each day?
+Well if the files are too large to fit in memory we should use a generator to process them line by line and of course we should use a more robust database system like PostgreSQL.
+For the outliers query I guess we could reduce memory consumption on the Python's side by using fetchone or fetchmany instead of fetchall but on the SQL side the server would still have the result set cached.

@@ -5,7 +5,7 @@ from src.db import DB
 from src.utils import load_data_from_file
 
 
-SRC_PATH = dirname(dirname(abspath(__file__))) + "uncommitted/votes.jsonl"
+SRC_PATH = dirname(dirname(abspath(__file__))) + "/uncommitted/votes.jsonl"
 DB_PATH = dirname(dirname(abspath(__file__))) + "/warehouse.db"
 
 
