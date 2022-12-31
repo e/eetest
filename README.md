@@ -69,9 +69,9 @@ There are two requirements for the task. A user should be able to execute each t
 
 1. Create an ingestion process that can be run on demand to ingest files containing vote data. You should ensure that data scientists, who will be consumers of the data, do not need to consider duplicate records in their queries.
 2. Create a SQL query to calculate and output which weeks are regarded as outliers based on the vote data that was ingested.
-The output should contain the year, week number and the number of votes for the week. A week is classified as outlier when the total votes for the week deviate from the average votes per week for the complete dataset by more than 20%</br>  
+The output should contain the year, week number and the number of votes for the week. A week is classified as outlier when the total votes for the week deviate from the average votes per week for the complete dataset by more than 20%.</br>  
 i.e. Say the mean votes is given by $\bar{x}$ and this specific week's votes is given by $x_i$.
-We want to know when $x_i$ differs from $\bar{x}$ by more than $20\%$. When this is true, then the ratio $\frac{x_i}{\bar{x}}$ must be further from $1$ by more than $0.2$. </br></br> 
+We want to know when $x_i$ differs from $\bar{x}$ by more than 20%. When this is true, then the ratio $\frac{x_i}{\bar{x}}$ must be further from $1$ by more than $0.2$. </br></br> 
 $\big|1 - \frac{x_i}{\bar{x}}\big| \gt 0.2$
 
 ## Example
@@ -116,3 +116,23 @@ Please include instructions about your strategy and important decisions you made
 
 1. What kind of data quality measures would you apply to your solution in production?
 2. What would need to change for the solution scale to work with a 10TB dataset with 5GB new data arriving each day?
+
+## Solution
+
+Dear all,
+Well first of all thank you very much, the assignment was very well written and I appreciate that.
+
+About my strategy, it took me a while to start, I spent a few days just thinking about the problem and gathering energy.
+When I started I first wrote the db module and the corresponding tests, and then I did the same with the ingest and outliers modules.
+It took me a while to figure out the SQL query to get the outliers because I don't have much experience with raw SQL, I learnt Python with Django and used to use the Django ORM to interact with databases, but I managed to write a query that works, maybe there's a better way to do it.
+I had to edit the makefile because the imports didn't work but apart from that everything seems to work fine. I love this test, very good, thank you very much indeed.
+It took me one or two days, more than two hours for sure but I hope the solution is OK.
+One important decision I made was to make the Id the primary key and use INSERT OR REPLACE.
+
+1. What kind of data quality measures would you apply to your solution in production?
+It would be easy to write a preprocessor, some kind of parser to check that every line contains the required keys and validate the data type of the corresponding values, and discard invalid lines if that's what you mean.
+It could also be used to split large files into smaller ones.
+
+2. What would need to change for the solution scale to work with a 10TB dataset with 5GB new data arriving each day?
+Well if the files are too large to fit in memory we should use a generator to process them line by line and of course we should use a more robust database system like PostgreSQL.
+For the outliers query I guess we could reduce memory consumption on the Python's side by using fetchone or fetchmany instead of fetchall but on the SQL side the server would still have the result set cached.
